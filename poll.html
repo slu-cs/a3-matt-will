@@ -11,26 +11,18 @@
     <form class="m-3 border p-3">
 
       <div class ="form-group">
-        <label for="text">Enter Your Poll Question::</label>
+        <label for="text">Enter Your Poll Question:</label>
         <input type="text" id="text" name="text" class="form-control">
       </div>
 
       <div class ="form-group">
-        <label for="textarea">Textarea:</label>
+        <label for="textarea">Enter Possible Answers:</label>
         <textarea id="textarea" name="textarea" class="form-control"></textarea>
+        <button type="submit" id="addAnswer" name="addAnswer" class="btn btn-primary">Add Answer</button>
       </div>
 
       <fieldset class="form-group">
-        <legend class="form-control-plaintext">Options:</legend>
-        <div class="form-check">
-          <input type="checkbox" id="check1" name="check1" value="C" class="form-check-input">
-          <label for="check1" class="form-check-label">C</label>
-        </div>
 
-        <div class="form-check">
-          <input type="checkbox" id="check2" name="check2" value="D" class="form-check-input">
-          <label for="check2" class="form-check-label">D</label>
-        </div>
       </fieldset>
         </select>
       </div>
@@ -38,5 +30,19 @@
       <button type="submit" class="btn btn-primary">Submit</button>
 
     </form>
+    <script>
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"></script>
+    </script>
+    <script>
+      let counter = 0;
+      $('form').on('#addAnswer', function(event){
+        counter++;
+        const addAnswer = $(this);
+        const optionLabel = $(`<label for check${counter}></label>`)
+        const option = $(`<input type="checkbox" name="check${counter}" value="1" class="form-check-input">`)
+      })
+    </script>
   </body>
 </html>
