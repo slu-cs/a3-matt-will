@@ -17,7 +17,7 @@
 
       <div class ="form-group">
         <label for="textarea">Enter Possible Answers:</label>
-        <textarea id="textarea" name="textarea" class="form-control"></textarea>
+        <textarea id="textareaAnswer" name="textarea" class="form-control"></textarea>
         <button type="button" id="addAnswer" name="addAnswer" class="btn btn-primary">Add Answer</button>
       </div>
       <div class="form-check">
@@ -47,13 +47,15 @@
         event.preventDefault();
         counter++;
         const responses = $('#responses');
+        let answer = $('textarea').val();
         const addAnswer = $(this);
         // const optionLabel = $(`<label for="check${counter}" class="form-check-label">Test</label>`);
         // const option = $(`<input type="checkbox" name="check${counter}" value="1" class="form-check-input">`);
-        const li = $(`<li><label for="check${counter}" class="form-check-label pr-5">Test</label> <input type="checkbox" name="check${counter}" value="1" class="form-check-input"></li>`)
+        const li = $(`<li><input type="checkbox" name="check${counter}" value="1" class="form-check-input pl-5"><label for="check${counter}" class="form-check-label">${answer}</label></li>`)
         // responses.append(optionLabel);
         // responses.append(option);
         responses.append(li);
+        $('textarea').val('');
       });
     </script>
   </body>
