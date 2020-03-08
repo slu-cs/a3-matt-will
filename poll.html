@@ -12,24 +12,20 @@
 
       <div class ="form-group">
         <label for="text">Enter Your Poll Question:</label>
-        <input type="text" id="text" name="text" class="form-control">
+        <input type="text" id="questionText" name="text" class="form-control">
         <button type="button" id="addQuestion" name="addQuestion" class="btn btn-primary mt-3">Add New Question</button>
       </div>
 
       <div class ="form-group">
-        <label for="textarea">Enter Possible Answers:</label>
-        <textarea id="textareaAnswer" name="textarea" class="form-control"></textarea>
+        <label for="textarea">Enter Possible Answer(s):</label>
+        <textarea id="textAreaAnswer" name="textarea" class="form-control"></textarea>
         <button type="button" id="addAnswer" name="addAnswer" class="btn btn-primary mt-3">Add New Answer</button>
         <button type="button" id="submit" name="submit" class="btn btn-primary mt-3">Submit</button>
       </div>
-      <div class="form-check">
+      <div class="form-check" id="pollingArea">
 
 
-        <fieldset class="form-group">
-          <ul id="responses">
 
-          </ul>
-        </fieldset>
 
       </div>
 
@@ -44,21 +40,42 @@
     </script>
     <script>
 
+    let questionCounter = 0;
+    $('#addQuestion').on('click', function(event){
+      questionCounter++;
+      event.preventDefault();
+      const pollingArea = $('#pollingArea');
+      let question = $('#questionText').val();
+      const questionItem = $(`<div><h5>${question}</h5><fieldset class="form-group">
+        <ul id="responses${questionCounter}">
+
+        </ul>
+      </fieldset></div>`);
+      pollingArea.append(questionItem);
+
+      $('#questionText').val('');
+});
       let counter = 0;
       $('#addAnswer').on('click', function(event){
         event.preventDefault();
         counter++;
-        const responses = $('#responses');
-        let answer = $('textarea').val();
-        const addAnswer = $(this);
+        const responses = $(`#responses${questionCounter}`);
+        let answer = $('#textAreaAnswer').val();
+        //const addAnswer = $(this);
         // const optionLabel = $(`<label for="check${counter}" class="form-check-label">Test</label>`);
         // const option = $(`<input type="checkbox" name="check${counter}" value="1" class="form-check-input">`);
         const li = $(`<li><input type="checkbox" name="check${counter}" value="1" class="form-check-input pl-5"><label for="check${counter}" class="form-check-label">${answer}</label></li>`)
         // responses.append(optionLabel);
         // responses.append(option);
-        responses.append(li);
+        if (!jQuery.isEmptyObject(answer)){
+          responses.append(li);
+        }
         $('textarea').val('');
-      });
+
+
+
+});
+
     </script>
   </body>
 </html>
