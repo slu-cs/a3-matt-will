@@ -31,6 +31,11 @@
 
       </div>
       <button type="button" id="vote" name="vote" class="btn btn-primary mt-3">Vote</button>
+      <div>
+        <ul id="tallyList">
+
+        </ul>
+      </div>
 
       <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
 
@@ -67,7 +72,7 @@
         //const addAnswer = $(this);
         // const optionLabel = $(`<label for="check${counter}" class="form-check-label">Test</label>`);
         // const option = $(`<input type="checkbox" name="check${counter}" value="1" class="form-check-input">`);
-        const li = $(`<li><input type="checkbox" name="check${counter}" value="1" class="form-check-input pl-5"><label for="check${counter}" class="form-check-label">${answer}</label></li>`)
+        const li = $(`<li><input type="checkbox" name="checkLabel${counter}" value="1" class="form-check-input pl-5"><label for="check${counter}" class="form-check-label">${answer}</label></li>`)
         // responses.append(optionLabel);
         // responses.append(option);
         if (!jQuery.isEmptyObject(answer)){
@@ -87,6 +92,16 @@
         $('#submit').remove();
         $('#answerLabel').remove();
       });
+
+      $('#vote').on('click', function(event){
+        event.preventDefault();
+        for (let i = 1; i <= counter; i++){
+          const li = $(`checkLabel${i}`)
+          // create an array of answers as we make them to access them,
+        }
+      });
+
+
     </script>
   </body>
 </html>
