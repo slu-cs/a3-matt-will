@@ -11,8 +11,8 @@
     <form class="m-3 border p-3">
 
       <div class ="form-group">
-        <label for="text">Enter Your Poll Question:</label>
-        <input type="text" id="questionText" name="text" class="form-control">
+        <label id="questionLabel" for="text">Enter Your Poll Question:</label>
+        <input type="text" id="text" name="text" class="form-control">
         <button type="button" id="addQuestion" name="addQuestion" class="btn btn-primary mt-3">Add New Question</button>
       </div>
 
@@ -27,6 +27,8 @@
 
 
 
+        <button type="button" id="vote" name="vote" class="btn btn-primary mt-3">Vote</button>
+
       </div>
 
       <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
@@ -39,7 +41,7 @@
       crossorigin="anonymous">
     </script>
     <script>
-
+    $('#vote').hide();
     let questionCounter = 0;
     $('#addQuestion').on('click', function(event){
       questionCounter++;
@@ -71,11 +73,19 @@
           responses.append(li);
         }
         $('textarea').val('');
-
-
-
-});
-
+      });
+      //SubmitButton
+      $('#submit').on('click', function(event) {
+        event.preventDefault();
+        $('#text').remove();
+        $('#questionLabel').remove();
+        $('#addQuestion').remove();
+        $('#vote').show();
+        $('#textareaAnswer').remove();
+        $('#addAnswer').remove();
+        $('#submit').remove();
+        $('#answerLabel').remove();
+      });
     </script>
   </body>
 </html>
