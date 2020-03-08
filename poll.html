@@ -31,6 +31,8 @@
           </ul>
         </fieldset>
 
+        <button type="button" id="vote" name="vote" class="btn btn-primary mt-3">Vote</button>
+
       </div>
 
       <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
@@ -43,6 +45,8 @@
       crossorigin="anonymous">
     </script>
     <script>
+
+      $('#vote').hide();
 
       let counter = 0;
       $('#addAnswer').on('click', function(event){
@@ -61,7 +65,9 @@
       });
       $('#submit').on('click', function(event) {
         event.preventDefault();
-        $(this).find('#addAnswer').remove();
+        console.log('test');
+        $('#vote').show();
+        $(this).find('label').remove();
       });
     </script>
   </body>
