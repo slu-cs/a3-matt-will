@@ -12,12 +12,12 @@
 
       <div class ="form-group">
         <label id="questionLabel" for="text">Enter Your Poll Question:</label>
-        <input type="text" id="text" name="text" class="form-control">
+        <input type="text" id="questionText" name="text" class="form-control">
         <button type="button" id="addQuestion" name="addQuestion" class="btn btn-primary mt-3">Add New Question</button>
       </div>
 
       <div class ="form-group">
-        <label for="textarea">Enter Possible Answer(s):</label>
+        <label for="textarea" id="answerLabel">Enter Possible Answer(s):</label>
         <textarea id="textAreaAnswer" name="textarea" class="form-control"></textarea>
         <button type="button" id="addAnswer" name="addAnswer" class="btn btn-primary mt-3">Add New Answer</button>
         <button type="button" id="submit" name="submit" class="btn btn-primary mt-3">Submit</button>
@@ -27,9 +27,10 @@
 
 
 
-        <button type="button" id="vote" name="vote" class="btn btn-primary mt-3">Vote</button>
+
 
       </div>
+      <button type="button" id="vote" name="vote" class="btn btn-primary mt-3">Vote</button>
 
       <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
 
@@ -77,11 +78,11 @@
       //SubmitButton
       $('#submit').on('click', function(event) {
         event.preventDefault();
-        $('#text').remove();
+        $('#questionText').remove();
         $('#questionLabel').remove();
         $('#addQuestion').remove();
         $('#vote').show();
-        $('#textareaAnswer').remove();
+        $('#textAreaAnswer').remove();
         $('#addAnswer').remove();
         $('#submit').remove();
         $('#answerLabel').remove();
