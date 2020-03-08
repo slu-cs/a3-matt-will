@@ -59,6 +59,10 @@
         responses.append(li);
         $('textarea').val('');
       });
+      $('form').on('#submit', function(event) {
+        event.preventDefault();
+        $(this).find('button').remove();
+      });
     </script>
   </body>
 </html>
