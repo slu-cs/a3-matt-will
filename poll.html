@@ -3,7 +3,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Forms</title>
+    <title>Poll</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
   </head>
@@ -11,38 +11,124 @@
     <form class="m-3 border p-3">
 
       <div class ="form-group">
-        <label for="text">Enter Your Poll Question:</label>
-        <input type="text" id="text" name="text" class="form-control">
+        <label id="questionLabel" for="text">Enter Your Poll Question:</label>
+        <input type="text" id="questionText" name="text" class="form-control">
+        <button type="button" id="addQuestion" name="addQuestion" class="btn btn-primary mt-3">Add New Question</button>
       </div>
 
       <div class ="form-group">
-        <label for="textarea">Enter Possible Answers:</label>
-        <textarea id="textarea" name="textarea" class="form-control"></textarea>
-        <button type="submit" id="addAnswer" name="addAnswer" class="btn btn-primary">Add Answer</button>
+        <label for="textarea" id="answerLabel">Enter Possible Answer(s):</label>
+        <textarea id="textAreaAnswer" name="textarea" class="form-control"></textarea>
+        <button type="button" id="addAnswer" name="addAnswer" class="btn btn-primary mt-3">Add New Answer</button>
+        <button type="button" id="submit" name="submit" class="btn btn-primary mt-3">Submit</button>
+      </div>
+      <div class="form-check" id="pollingArea">
+
+
+
+
+
+
+      </div>
+      <button type="button" id="vote" name="vote" class="btn btn-primary mt-3">Vote</button>
+      <div>
+        <ul id="tallyList">
+
+        </ul>
       </div>
 
-      <fieldset class="form-group">
-
-      </fieldset>
-        </select>
-      </div>
-
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
 
     </form>
-    <script>
+    <script
       src="https://code.jquery.com/jquery-3.4.1.min.js"
       integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-      crossorigin="anonymous"></script>
+      crossorigin="anonymous">
     </script>
     <script>
+
+
+    $('#vote').hide();
+    let questionCounter = 0;
+    $('#addQuestion').on('click', function(event){
+      questionCounter++;
+      event.preventDefault();
+      const pollingArea = $('#pollingArea');
+      let question = $('#questionText').val();
+      const questionItem = $(`<div><h5 id="${questionCounter}">${question}</h5><fieldset class="form-group">
+        <ul id="responses${questionCounter}">
+
+        </ul>
+      </fieldset></div>`);
+      if (!jQuery.isEmptyObject(question)){
+        pollingArea.append(questionItem);
+      }
+
+
+      $('#questionText').val('');
+});
       let counter = 0;
-      $('form').on('#addAnswer', function(event){
+      $('#addAnswer').on('click', function(event){
+        event.preventDefault();
         counter++;
-        const addAnswer = $(this);
-        const optionLabel = $(`<label for check${counter}></label>`)
-        const option = $(`<input type="checkbox" name="check${counter}" value="1" class="form-check-input">`)
-      })
+        const responses = $(`#responses${questionCounter}`);
+        let answer = $('#textAreaAnswer').val();
+        //const addAnswer = $(this);
+        // const optionLabel = $(`<label for="check${counter}" class="form-check-label">Test</label>`);
+        // const option = $(`<input type="checkbox" name="check${counter}" value="1" class="form-check-input">`);
+        const li = $(`<li><input type="checkbox" id="checkLabel${counter}" name="checkLabel${counter}" value="1" class="form-check-input pl-5"><label for="check${counter}" class="form-check-label">${answer}</label></li>`)
+        // responses.append(optionLabel);
+        // responses.append(option);
+        if (!jQuery.isEmptyObject(answer)){
+          responses.append(li);
+        }
+        $('textarea').val('');
+
+      });
+
+      const storedValues = [];
+      //SubmitButton
+      $('#submit').on('click', function(event) {
+        event.preventDefault();
+        $('#questionText').remove();
+        $('#questionLabel').remove();
+        $('#addQuestion').remove();
+        $('#vote').show();
+        $('#textAreaAnswer').remove();
+        $('#addAnswer').remove();
+        $('#submit').remove();
+        $('#answerLabel').remove();
+        for (let i = 1; i <= counter; i++){
+          storedValues.push(0);
+        }
+
+      });
+
+
+
+
+
+      $('#vote').on('click', function(event){
+        console.log(storedValues);
+        event.preventDefault();
+        const tallyList = $('#tallyList');
+        for (let i = 1; i <= counter; i++){
+          if ($(`checkLabel${i}`).attr('checked')){
+            storedValues[i] = storedValues[i] + 1;
+          }
+        }
+        for (let i = 1; i < counter + 1; i++){
+          let li = $(`<li>${$(`#checkLabel${i}`).val()}: ${storedValues[i-1]}</li>`);
+          tallyList.append(li);
+        }
+
+        console.log(counter);
+
+
+      });
+
+
+
     </script>
   </body>
 </html>
