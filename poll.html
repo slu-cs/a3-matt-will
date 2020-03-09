@@ -32,7 +32,7 @@
       </div>
       <button type="button" id="vote" name="vote" class="btn btn-primary mt-3">Vote</button>
       <div>
-        <ul id="tallyList">
+        <ul id="tallyList" class="mt-3">
 
         </ul>
       </div>
@@ -76,9 +76,11 @@
         //const addAnswer = $(this);
         // const optionLabel = $(`<label for="check${counter}" class="form-check-label">Test</label>`);
         // const option = $(`<input type="checkbox" name="check${counter}" value="1" class="form-check-input">`);
-        const li = $(`<li><input type="checkbox" id="checkLabel${counter}" name="checkLabel${counter}" value="1" class="form-check-input pl-5"><label for="check${counter}" class="form-check-label">${answer}</label></li>`)
+        const questionTally = (`<h5>${$(`#${questionCounter}`).html()}</h5>`)
+        const li = $(`<li><input type="checkbox" id="checkLabel${counter}" name="checkLabel${counter}" value="1" class="form-check-input pl-5"><label id="labelCheck${counter}" for="check${counter}" class="form-check-label">${answer}</label></li>`)
         // responses.append(optionLabel);
         // responses.append(option);
+
         if (!jQuery.isEmptyObject(answer)){
           responses.append(li);
         }
@@ -98,7 +100,7 @@
         $('#addAnswer').remove();
         $('#submit').remove();
         $('#answerLabel').remove();
-        for (let i = 1; i <= counter; i++){
+        for (let i = 0; i < counter; i++){
           storedValues.push(0);
         }
 
@@ -109,20 +111,29 @@
 
 
       $('#vote').on('click', function(event){
-        console.log(storedValues);
+
         event.preventDefault();
         const tallyList = $('#tallyList');
+        tallyList.find('li').remove();
         for (let i = 1; i <= counter; i++){
-          if ($(`checkLabel${i}`).attr('checked')){
-            storedValues[i] = storedValues[i] + 1;
+          if ($(`#checkLabel${i}`) == 1){
+            storedValues[i-1] = storedValues[i-1] + 1;
           }
         }
         for (let i = 1; i < counter + 1; i++){
-          let li = $(`<li>${$(`#checkLabel${i}`).val()}: ${storedValues[i-1]}</li>`);
-          tallyList.append(li);
+          if ($(`#checkLabel${i}`).prop("checked") == true){
+            storedValues[i-1]++;
+          }
+          if (storedValues[i-1] !== undefined){
+            let li = $(`<li>${$(`#labelCheck${i}`).html()}: ${storedValues[i-1]}</li>`);
+            tallyList.append(li);
+          }
+
+
         }
 
         console.log(counter);
+        console.log(storedValues);
 
 
       });
