@@ -125,7 +125,7 @@
           if ($(`#checkLabel${i}`).prop("checked") == true){
             storedValues[i-1]++;
           }
-          if (storedValues[i-1] !== undefined){
+          if (storedValues[i-1] !== undefined || $(`#labelCheck${i}`).html()!== undefined){
             let li = $(`<li>${$(`#labelCheck${i}`).html()}: ${storedValues[i-1]}</li>`);
             tallyList.append(li);
           }
