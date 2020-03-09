@@ -47,6 +47,8 @@
       crossorigin="anonymous">
     </script>
     <script>
+
+
     $('#vote').hide();
     let questionCounter = 0;
     $('#addQuestion').on('click', function(event){
@@ -54,12 +56,15 @@
       event.preventDefault();
       const pollingArea = $('#pollingArea');
       let question = $('#questionText').val();
-      const questionItem = $(`<div><h5>${question}</h5><fieldset class="form-group">
+      const questionItem = $(`<div><h5 id="${questionCounter}">${question}</h5><fieldset class="form-group">
         <ul id="responses${questionCounter}">
 
         </ul>
       </fieldset></div>`);
-      pollingArea.append(questionItem);
+      if (!jQuery.isEmptyObject(question)){
+        pollingArea.append(questionItem);
+      }
+
 
       $('#questionText').val('');
 });
@@ -72,14 +77,17 @@
         //const addAnswer = $(this);
         // const optionLabel = $(`<label for="check${counter}" class="form-check-label">Test</label>`);
         // const option = $(`<input type="checkbox" name="check${counter}" value="1" class="form-check-input">`);
-        const li = $(`<li><input type="checkbox" name="checkLabel${counter}" value="1" class="form-check-input pl-5"><label for="check${counter}" class="form-check-label">${answer}</label></li>`)
+        const li = $(`<li><input type="checkbox" id="checkLabel${counter}" name="checkLabel${counter}" value="1" class="form-check-input pl-5"><label for="check${counter}" class="form-check-label">${answer}</label></li>`)
         // responses.append(optionLabel);
         // responses.append(option);
         if (!jQuery.isEmptyObject(answer)){
           responses.append(li);
         }
         $('textarea').val('');
+
       });
+
+      const storedValues = [];
       //SubmitButton
       $('#submit').on('click', function(event) {
         event.preventDefault();
@@ -91,15 +99,35 @@
         $('#addAnswer').remove();
         $('#submit').remove();
         $('#answerLabel').remove();
+        for (let i = 1; i <= counter; i++){
+          storedValues.push(0);
+        }
+
       });
 
+
+
+
+
       $('#vote').on('click', function(event){
+        console.log(storedValues);
         event.preventDefault();
+        const tallyList = $('#tallyList');
         for (let i = 1; i <= counter; i++){
-          const li = $(`checkLabel${i}`)
-          // create an array of answers as we make them to access them,
+          if ($(`checkLabel${i}`).attr('checked')){
+            storedValues[i] = storedValues[i] + 1;
+          }
         }
+        for (let i = 1; i < counter + 1; i++){
+          let li = $(`<li>${$(`#checkLabel${i}`).val()}: ${storedValues[i-1]}</li>`);
+          tallyList.append(li);
+        }
+
+        console.log(counter);
+
+
       });
+
 
 
     </script>
