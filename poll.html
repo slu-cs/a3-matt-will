@@ -111,9 +111,10 @@
 
 
       $('#vote').on('click', function(event){
-
-        event.preventDefault();
         const tallyList = $('#tallyList');
+        tallyList.find('h5').remove();
+        tallyList.append($("<h5>Results:</h5>"));
+        event.preventDefault();
         tallyList.find('li').remove();
         for (let i = 1; i <= counter; i++){
           if ($(`#checkLabel${i}`) == 1){
